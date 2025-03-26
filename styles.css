@@ -1,0 +1,122 @@
+.container {
+    position: relative;
+    width: 750px;
+    height: 400px;
+    margin: 0 auto;
+}
+.graphic {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: absolute;
+    top: 13%;
+}
+.webcam {
+    position: absolute;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 150px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.logo {
+    width: 35%;
+    height: auto;
+    position: relative;
+    margin: 0 auto;
+    display: block;
+}
+
+body {
+    background-color: paleturquoise;
+    font-family: 'Tektur', sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2#dumpfeed {
+    text-align: center;
+    color: green;
+}
+
+
+.lightcontainer {
+    position: relative;
+    width: 750px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.light1 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #666 30%, #333 100%);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 15%;
+}
+
+/* Light-up state */
+.light1.active {
+    background: radial-gradient(circle, #32a83a 20%, #32a83a 100%);
+    box-shadow: 0 0 20px #32a83a, 0 0 40px #32a83a;
+}
+
+.light2 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #666 30%, #333 100%);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 43.5%;
+}
+
+/* Light-up state */
+.light2.active {
+    background: radial-gradient(circle, #1d64de 20%, #1d64de 100%);
+    box-shadow: 0 0 20px #1d64de, 0 0 40px #1d64de;
+}
+
+.light3 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #666 30%, #333 100%);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 72.5%;
+}
+
+/* Light-up state */
+.light3.active {
+    background: radial-gradient(circle, #e5e82a 20%, #c2c41b 100%);
+    box-shadow: 0 0 20px #c2c41b, 0 0 40px #e5e82a;
+}
+
+video {
+    transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+}
