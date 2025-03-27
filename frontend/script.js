@@ -14,15 +14,19 @@ light3.classList.toggle('active');
 
 const video = document.getElementById('webcam');
 
-// Request permission to use the webcam and stream it
-navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => { // Assign the stream to the video element's source
-        video.srcObject = stream;
-    })
-    .catch((error) => {
-        console.error('Error accessing webcam: ', error);
-    });
+// // Request permission to use the webcam and stream it
+// navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => { // Assign the stream to the video element's source
+//         video.srcObject = stream;
+//     })
+//     .catch((error) => {
+//         console.error('Error accessing webcam: ', error);
+//     });
 
 
+
+    function updateImage() {
+        video.src = '../images/current.jpg?' + new Date().getTime();
+    }
 
     async function fetchData() {
         try {
@@ -43,4 +47,5 @@ navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => { // Assig
     
     // Fetch data every second
     setInterval(fetchData, 1000);
+    setInterval(updateImage, 100);
     
