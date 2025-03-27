@@ -18,7 +18,7 @@ def get_sensor_data():
 
 if __name__ == '__main__':
 
-        ser = serial.Serial('COM4', 9600, timeout=1)
+        ser = serial.Serial('COM5', 9600, timeout=1)
         print([comport.device for comport in serial.tools.list_ports.comports()])
 
         t2 = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 5000, 'debug': False}, daemon=True)

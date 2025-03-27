@@ -9,7 +9,7 @@ def get_type() -> int:
     if type != old_type:
         old_type = type
         return type
-        
+
     return -1
 
 def start_video():
@@ -28,6 +28,7 @@ def start_video():
     classNames = ["compost", "trash", "recycle"]
     colors = [(0, 255, 0), (255, 0, 0), (255, 0, 0)]
     while True:
+        global type
         type = -1
         success, img = cap.read()
         results = model(img, stream=True, verbose=False)
@@ -40,7 +41,6 @@ def start_video():
 
                 # class name
                 cls = int(box.cls[0])
-                global type
                 type = cls
 
                 # bounding box
