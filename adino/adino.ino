@@ -14,11 +14,6 @@ void loop() {
 
   value = analogRead(pres);
   Serial.println(value);
-  if (value > 300) {
-    digitalWrite(led, LOW);
-  } else {
-    digitalWrite(led, HIGH);
-  }
 
   delay(500);
 }
