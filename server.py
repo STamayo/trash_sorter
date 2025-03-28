@@ -31,12 +31,10 @@ def update_type(typ):
         new_type = typ.get_type()
 
         if current_type != new_type:
+                print(f'sending {new_type} to serial')
+                ser.write(bytes([255 if new_type == -1 else new_type]))
                 with current_type_lock:
                         current_type = new_type
-
-        if (new_type != -1):
-                #print(f'sending to serial {new_type}')
-                ser.write(bytes([new_type]))    #current type: 0 = compost, 1 = trash, 2 = recycle
 
 
 if __name__ == '__main__':

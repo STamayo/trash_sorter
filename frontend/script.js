@@ -29,10 +29,10 @@ const video = document.getElementById('webcam');
             const data = await response.json();     // Convert response to JSON
             const val1 = parseInt(data.sensor_value, 10);
             if(val1 > 200){  //change this value
-                document.getElementById("sensorValue").innerText = "Full";
+                document.getElementById("sensorValue").innerText = "Normal";
             }
             else if(val1 <= 200){
-                document.getElementById("sensorValue").innerText = "Normal";
+                document.getElementById("sensorValue").innerText = "Full";
             }
             
             //checking waste type
