@@ -6,6 +6,8 @@ import time
 import video_processing
 import threading
 
+current_type = -1
+
 app = Flask(__name__)
 CORS(app)  # Allow cross-origin requests
 # Open serial connection (update 'COM4' if needed)
@@ -16,7 +18,7 @@ ser = None
 def get_sensor_data():
         ser.reset_input_buffer()
         data = ser.readline().decode('utf-8').strip()
-        return jsonify({"sensor_value": data})
+        return jsonify({"sensor_value": data, "waste_type": current_type})
 
 if __name__ == '__main__':
 
@@ -35,6 +37,7 @@ if __name__ == '__main__':
                 current_type = typ.get_type()
                 if (current_type != -1):
                         ser.write(bytes([current_type]))
+                        #current type: 0 = compost, 1 = trash, 2 = recycle
  #               print(f's: {current_type}')
                 time.sleep(0.2)
 
