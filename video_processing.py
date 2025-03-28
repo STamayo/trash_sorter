@@ -7,7 +7,7 @@ def start_video(t):
     print('Initializing video...')
 
     # start webcam
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     cap.set(3, 640)
     cap.set(4, 480)
 
@@ -52,10 +52,12 @@ def start_video(t):
                 thickness = 2
 
                 cv2.putText(img, f'{classNames[cls]} ({confidence})', org, font, fontScale, colors[cls], thickness)
-            
+        
+            if len(boxes) == 0:
+                t.set_type(-1)
         
         cv2.imwrite('./images/current.jpg', img)
-        cv2.imshow('Webcam', img)
+        #cv2.imshow('Webcam', img)
         if cv2.waitKey(1) == ord('q'):
             print('destryong video')
             break
@@ -72,7 +74,7 @@ class TrashType:
         self.cur_type = inp
     
     def get_type(self) -> int:
-        if self.cur_type != self.old_type:
-            self.old_type = self.cur_type
+        if self.cur_type is not None:
             return self.cur_type
-        return -1
+        else: 
+            return -1

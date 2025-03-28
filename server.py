@@ -7,6 +7,7 @@ import video_processing
 import threading
 
 current_type = -1
+current_type_lock = threading.Lock()
 
 app = Flask(__name__)
 CORS(app)  # Allow cross-origin requests
@@ -18,11 +19,29 @@ ser = None
 def get_sensor_data():
         ser.reset_input_buffer()
         data = ser.readline().decode('utf-8').strip()
-        return jsonify({"sensor_value": data, "waste_type": current_type})
+
+        with current_type_lock:
+                waste_type = current_type
+
+        return jsonify({"sensor_value": data, "waste_type": waste_type})
+
+
+def update_type(typ):
+        global current_type
+        new_type = typ.get_type()
+
+        if current_type != new_type:
+                with current_type_lock:
+                        current_type = new_type
+
+        if (new_type != -1):
+                #print(f'sending to serial {new_type}')
+                ser.write(bytes([new_type]))    #current type: 0 = compost, 1 = trash, 2 = recycle
+
 
 if __name__ == '__main__':
 
-        ser = serial.Serial('COM5', 9600, timeout=1)
+        ser = serial.Serial('COM6', 9600, timeout=1)
         print([comport.device for comport in serial.tools.list_ports.comports()])
         typ = video_processing.TrashType()
 
@@ -34,11 +53,8 @@ if __name__ == '__main__':
         t1.start()
 
         while True:
-                current_type = typ.get_type()
-                if (current_type != -1):
-                        ser.write(bytes([current_type]))
-                        #current type: 0 = compost, 1 = trash, 2 = recycle
- #               print(f's: {current_type}')
+                update_type(typ)
+                                        
                 time.sleep(0.2)
 
         
