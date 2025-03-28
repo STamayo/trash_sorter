@@ -12,7 +12,7 @@ def start_video(t):
     cap.set(4, 480)
 
     # model
-    model = YOLO("./datasets/dataset1best.pt", verbose=False)
+    model = YOLO("./datasets/dataset2best.pt", verbose=False)
 
     # object classes
     classNames = ["compost", "trash", "recycle"]
