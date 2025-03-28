@@ -2,17 +2,7 @@ from ultralytics import YOLO
 import cv2
 import math
 
-type = -1
-old_type = -1
-
-def get_type() -> int:
-    if type != old_type:
-        old_type = type
-        return type
-
-    return -1
-
-def start_video():
+def start_video(t):
 
     print('Initializing video...')
 
@@ -26,12 +16,12 @@ def start_video():
 
     # object classes
     classNames = ["compost", "trash", "recycle"]
-    colors = [(0, 255, 0), (255, 0, 0), (255, 0, 0)]
+    colors = [(0, 255, 0), (0, 0, 255), (255, 0, 0)]
+
     while True:
-        global type
-        type = -1
+
         success, img = cap.read()
-        results = model(img, stream=True, verbose=False)
+        results = model(img, stream=True, verbose=False, conf = 0.8)
 
         # coordinates
         for r in results:
@@ -41,7 +31,7 @@ def start_video():
 
                 # class name
                 cls = int(box.cls[0])
-                type = cls
+                t.set_type(cls)
 
                 # bounding box
                 x1, y1, x2, y2 = box.xyxy[0]
@@ -59,15 +49,30 @@ def start_video():
                 org = [x1, y1]
                 font = cv2.FONT_HERSHEY_DUPLEX
                 fontScale = 1
-                color = (255, 0, 0)
                 thickness = 2
 
                 cv2.putText(img, f'{classNames[cls]} ({confidence})', org, font, fontScale, colors[cls], thickness)
+            
         
         cv2.imwrite('./images/current.jpg', img)
         cv2.imshow('Webcam', img)
         if cv2.waitKey(1) == ord('q'):
+            print('destryong video')
             break
 
     cap.release()
     cv2.destroyAllWindows()
+
+class TrashType:
+
+    cur_type = None
+    old_type = None
+
+    def set_type(self, inp):
+        self.cur_type = inp
+    
+    def get_type(self) -> int:
+        if self.cur_type != self.old_type:
+            self.old_type = self.cur_type
+            return self.cur_type
+        return -1
