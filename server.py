@@ -19,10 +19,15 @@ ser = None
 def get_sensor_data():
         ser.reset_input_buffer()
         data = ser.readline().decode('utf-8').strip()
+        
+       # print(data)
 
         with current_type_lock:
                 waste_type = current_type
 
+        if(data == ""):
+                return jsonify({"sensor_value": -1, "waste_type": waste_type})
+        
         return jsonify({"sensor_value": data, "waste_type": waste_type})
 
 
@@ -31,15 +36,18 @@ def update_type(typ):
         new_type = typ.get_type()
 
         if current_type != new_type:
-                print(f'sending {new_type} to serial')
-                ser.write(bytes([255 if new_type == -1 else new_type]))
+                value = 255 if new_type == -1 else new_type
+                print(f'sending { bytes([value]) } to serial')
+                ser.write(bytes([value]))
                 with current_type_lock:
                         current_type = new_type
 
 
 if __name__ == '__main__':
 
-        ser = serial.Serial('COM6', 9600, timeout=1)
+        ser = serial.Serial('COM5', 9600, timeout=1)
+        time.sleep(1)
+
         print([comport.device for comport in serial.tools.list_ports.comports()])
         typ = video_processing.TrashType()
 

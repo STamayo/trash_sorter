@@ -28,10 +28,10 @@ const video = document.getElementById('webcam');
             const response = await fetch('http://127.0.0.1:5000/data');  // Fetch from Flask server
             const data = await response.json();     // Convert response to JSON
             const val1 = parseInt(data.sensor_value, 10);
-            if(val1 > 200){  //change this value
+            if(val1 > 90){  //change this value
                 document.getElementById("sensorValue").innerText = "Normal";
             }
-            else if(val1 <= 200){
+            else if(val1 <= 90 && val1 >= 0){
                 document.getElementById("sensorValue").innerText = "Full";
             }
             

@@ -17,11 +17,12 @@ def start_video(t):
     # object classes
     classNames = ["compost", "trash", "recycle"]
     colors = [(0, 255, 0), (0, 0, 255), (255, 0, 0)]
+    remap = [2, 1, 0]
 
     while True:
 
         success, img = cap.read()
-        results = model(img, stream=True, verbose=False, conf = 0.8)
+        results = model(img, stream=True, verbose=False, conf = 0.78)
 
         # coordinates
         for r in results:
@@ -31,6 +32,7 @@ def start_video(t):
 
                 # class name
                 cls = int(box.cls[0])
+                cls = remap[cls]
                 t.set_type(cls)
 
                 # bounding box
@@ -50,7 +52,7 @@ def start_video(t):
                 font = cv2.FONT_HERSHEY_DUPLEX
                 fontScale = 1
                 thickness = 2
-
+               # print(confidence)
                 cv2.putText(img, f'{classNames[cls]} ({confidence})', org, font, fontScale, colors[cls], thickness)
         
             if len(boxes) == 0:
@@ -58,6 +60,7 @@ def start_video(t):
         
         cv2.imwrite('./images/current.jpg', img)
         #cv2.imshow('Webcam', img)
+        
         if cv2.waitKey(1) == ord('q'):
             print('destryong video')
             break
