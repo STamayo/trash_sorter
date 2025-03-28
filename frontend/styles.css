@@ -11,16 +11,17 @@
     position: absolute;
     top: 13%;
 }
-.webcam {
+
+img#webcam {
     position: absolute;
-    top: 51%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 150px;
-    border-radius: 12px;
-    object-fit: cover;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 150px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 .logo {
