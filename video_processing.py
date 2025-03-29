@@ -7,12 +7,12 @@ def start_video(t):
     print('Initializing video...')
 
     # start webcam
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(2)
     cap.set(3, 640)
     cap.set(4, 480)
 
     # model
-    model = YOLO("./datasets/dataset2best.pt", verbose=False)
+    model = YOLO("./datasets/dataset3best.pt", verbose=False)
 
     # object classes
     classNames = ["compost", "trash", "recycle"]
@@ -22,7 +22,7 @@ def start_video(t):
     while True:
 
         success, img = cap.read()
-        results = model(img, stream=True, verbose=False, conf = 0.78)
+        results = model(img, stream=True, verbose=False, conf = 0.7)
 
         # coordinates
         for r in results:
