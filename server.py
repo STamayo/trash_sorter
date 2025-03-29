@@ -20,7 +20,7 @@ def get_sensor_data():
         ser.reset_input_buffer()
         data = ser.readline().decode('utf-8').strip()
         
-       # print(data)
+        print(data)
 
         with current_type_lock:
                 waste_type = current_type
@@ -37,7 +37,7 @@ def update_type(typ):
 
         if current_type != new_type:
                 value = 255 if new_type == -1 else new_type
-                print(f'sending { bytes([value]) } to serial')
+               # print(f'sending { bytes([value]) } to serial')
                 ser.write(bytes([value]))
                 with current_type_lock:
                         current_type = new_type
@@ -45,7 +45,7 @@ def update_type(typ):
 
 if __name__ == '__main__':
 
-        ser = serial.Serial('COM5', 9600, timeout=1)
+        ser = serial.Serial('COM12', 9600, timeout=1)
         time.sleep(1)
 
         print([comport.device for comport in serial.tools.list_ports.comports()])
